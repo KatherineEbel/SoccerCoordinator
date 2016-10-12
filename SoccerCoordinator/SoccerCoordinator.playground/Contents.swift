@@ -1,43 +1,152 @@
-//: Playground - noun: a place where people can play
+// Soccer Coordinator
 
-let joeSmith: [String : Any] = ["name": "Joe Smith", "height": 42, "isExperienced": true, "guardians": ["Jim Smith", "Jan Smith"]]
+import Foundation
 
-let jillTanner: [String : Any] = ["name": "Jill Tanner", "height": 36, "isExperienced": true, "guardians": ["Clara Tanner"]]
+// Dictionary for each individual player
+let joeSmith: [String : Any] = ["name": "Joe Smith", "height": 42, "isExperienced": true, "guardians": "Jim and Jan Smith"]
 
-let billBon: [String : Any] = ["name": "Bill Bon", "height": 43, "isExperienced": true, "guardians": ["Sara Bon", "Jenny Bon"]]
+let jillTanner: [String : Any] = ["name": "Jill Tanner", "height": 36, "isExperienced": true, "guardians": "Clara Tanner"]
 
-let evaGordon: [String : Any] = ["name": "Eva Gordon", "height": 45, "isExperienced": false, "guardians": ["Wendy Gordon", "Mike Gordon"]]
+let billBon: [String : Any] = ["name": "Bill Bon", "height": 43, "isExperienced": true, "guardians": "Sara and Jenny Bon"]
 
-let mattGill: [String : Any] = ["name": "Matt Gill", "height": 40, "isExperienced": false, "guardians": ["Charles Gill", "Sylvia Gill"]]
+let evaGordon: [String : Any] = ["name": "Eva Gordon", "height": 45, "isExperienced": false, "guardians": "Wendy and Mike Gordon"]
 
-let kimmyStein: [String : Any] = ["name": "Kimmy Stein", "height": 41, "isExperienced": false, "guardians": ["Bill Stein", "Hillary Stein"]]
+let mattGill: [String : Any] = ["name": "Matt Gill", "height": 40, "isExperienced": false, "guardians": "Charles and Sylvia Gill"]
 
-let sammyAdams: [String : Any] = ["name": "Sammy Adams", "height": 45, "isExperienced": false, "guardians": ["Jeff Adams"]]
+let kimmyStein: [String : Any] = ["name": "Kimmy Stein", "height": 41, "isExperienced": false, "guardians": "Bill and Hillary Stein"]
 
-let karlSaygan: [String : Any] = ["name": "Karl Saygan", "height": 42, "isExperienced": true, "guardians": ["Heather Bledsoe"]]
+let sammyAdams: [String : Any] = ["name": "Sammy Adams", "height": 45, "isExperienced": false, "guardians": "Jeff Adams"]
 
-let suzaneGreenberg: [String : Any] = ["name": "Suzane Greenberg", "height": 44, "isExperienced": true, "guardians": ["Henrietta Dumas"]]
+let karlSaygan: [String : Any] = ["name": "Karl Saygan", "height": 42, "isExperienced": true, "guardians": "Heather Bledsoe"]
 
-let salDali: [String : Any] = ["name": "Sal Dali", "height": 41, "isExperienced": false, "guardians": ["Gala Dali"]]
+let suzaneGreenberg: [String : Any] = ["name": "Suzane Greenberg", "height": 44, "isExperienced": true, "guardians": "Henrietta Dumas"]
 
-let joeKavalier: [String : Any] = ["name": "Joe Kavalier", "height": 39, "isExperienced": false, "guardians": ["Sam Kavalier", "Elaine Kavalier"]]
+let salDali: [String : Any] = ["name": "Sal Dali", "height": 41, "isExperienced": false, "guardians": "Gala Dali"]
 
-let benFinkelstein: [String : Any] = ["name": "Ben Finkelstein", "height": 44, "isExperienced": false, "guardians": ["Aaron Finkelstein", "Jill Finkelstein"]]
+let joeKavalier: [String : Any] = ["name": "Joe Kavalier", "height": 39, "isExperienced": false, "guardians": "Sam and Elaine Kavalier"]
 
-let diegoSoto: [String : Any] = ["name": "Diego Soto", "height": 41, "isExperienced": true, "guardians": ["Robin Soto", "Sarika Soto"]]
+let benFinkelstein: [String : Any] = ["name": "Ben Finkelstein", "height": 44, "isExperienced": false, "guardians": "Aaron and Jill Finkelstein"]
 
-let chloeAlaska: [String : Any] = ["name": "Chloe Alaska", "height": 47, "isExperienced": false, "guardians": ["David Alaska", "Jamie Alaska"]]
+let diegoSoto: [String : Any] = ["name": "Diego Soto", "height": 41, "isExperienced": true, "guardians": "Robin and Sarika Soto"]
 
-let arnoldWillis: [String : Any] = ["name": "Arnold Willis", "height": 43, "isExperienced": false, "guardians": ["Claire Willis"]]
+let chloeAlaska: [String : Any] = ["name": "Chloe Alaska", "height": 47, "isExperienced": false, "guardians": "David and Jamie Alaska"]
 
-let phillipHelm: [String : Any] = ["name": "Phillip Helm", "height": 44, "isExperienced": true, "guardians": ["Thomas Helm", "Eva Jones"]]
+let arnoldWillis: [String : Any] = ["name": "Arnold Willis", "height": 43, "isExperienced": false, "guardians": "Claire Willis"]
 
-let lesClay: [String : Any] = ["name": "Les Clay", "height": 42, "isExperienced": true, "guardians": ["Wynonna Brown"]]
+let phillipHelm: [String : Any] = ["name": "Phillip Helm", "height": 44, "isExperienced": true, "guardians": "Thomas and Eva Jones"]
 
-let herschelKrustofski: [String : Any] = ["name": "Herschel Krustofski", "height": 45, "isExperienced": true, "guardians": ["Hyman Krustofski", "Rachel Krustofski"]]
+let lesClay: [String : Any] = ["name": "Les Clay", "height": 42, "isExperienced": true, "guardians": "Wynonna Brown"]
 
+let herschelKrustofski: [String : Any] = ["name": "Herschel Krustofski", "height": 45, "isExperienced": true, "guardians": "Hyman and Rachel Krustofski"]
+
+// Array for all available players
 let allPlayers = [
   joeSmith, jillTanner, billBon, evaGordon, mattGill, kimmyStein,
   sammyAdams, karlSaygan, suzaneGreenberg, salDali, joeKavalier, benFinkelstein,
   diegoSoto, chloeAlaska, arnoldWillis, phillipHelm, lesClay, herschelKrustofski
 ]
+
+// string constants for each team's practice date/time
+let dragonPracticeDate = "March 17th at 1pm"
+let sharkPracticeDate = "March 17th at 3pm"
+let raptorPracticeDate = "March 18th at 1pm"
+
+// collections for players/teams
+var experiencedPlayers: [[String: Any]] = []
+var inexperiencedPlayers: [[String: Any]] = []
+var dragons: [[String: Any]] = []
+var sharks: [[String: Any]] = []
+var raptors: [[String: Any]] = []
+var teams = ["dragons": dragons, "sharks": sharks, "raptors": raptors]
+
+
+// return true if player is experienced
+func isExperienced(player: [String: Any]) -> Bool {
+  return player["isExperienced"] as! Bool
+}
+
+func isShortest(player1: [String:Any], player2: [String:Any]) -> Bool {
+  return (player1["height"] as! Int) < (player2["height"] as! Int)
+}
+
+// Sorts players into experienced and inexperienced players
+func sortPlayersByExperience() {
+  for player in allPlayers {
+    isExperienced(player: player) ? experiencedPlayers.append(player) : inexperiencedPlayers.append(player)
+  }
+}
+
+// Build letter for an individual player
+func letterFor(player: [String: Any], on team: String) -> String {
+  var practiceDate = ""
+  let playerName = player["name"] as! String
+  let guardians = player["guardians"] as! String
+  switch team.lowercased() {
+    case "sharks": practiceDate = sharkPracticeDate
+    case "dragons": practiceDate = dragonPracticeDate
+    case "raptors": practiceDate = raptorPracticeDate
+    default: "to be announced"
+  }
+  return "Dear \(guardians),\nWe are happy to inform you that your child \(playerName) has been selected to play for the \(team.capitalized).\nPractices are scheduled to start \(practiceDate). We look forward to seeing you then!\nRegards,\nThe \(team.capitalized)\n"
+}
+
+// print letters for a given team
+func printLettersFor(team: [[String:Any]], teamName name: String) {
+  for player in team {
+    print(letterFor(player: player, on: name))
+  }
+}
+
+sortPlayersByExperience()
+
+// calculate number of experienced players based on number of teams
+let experiencedPlayersPerTeam = experiencedPlayers.count / teams.count
+
+// put experienced shorter players first
+experiencedPlayers.sort(by: isShortest)
+func assignExperiencedPlayers() {
+  while experiencedPlayers.count > 0 {
+    for (key, _) in teams {
+      if (teams[key]?.count)! < experiencedPlayersPerTeam {
+        teams[key]?.append(experiencedPlayers.removeFirst())
+      }
+    }
+  }
+}
+
+// put inexperienced taller players first
+func assignInExperiencedPlayers() {
+  inexperiencedPlayers.sort(by: isShortest)
+  inexperiencedPlayers.reverse()
+  while inexperiencedPlayers.count > 0 {
+    for (key, _) in teams {
+      teams[key]?.append(inexperiencedPlayers.removeFirst())
+    }
+  }
+  
+}
+
+func assignTeams() {
+  assignExperiencedPlayers()
+  assignInExperiencedPlayers()
+}
+assignTeams()
+
+// calculates average height for each team
+func averageHeight(forTeam team: [[String:Any]]) -> Double {
+  var totalHeightInInches:Double = 0
+  for player in team {
+    totalHeightInInches += Double(player["height"] as! Int)
+  }
+  return Double(totalHeightInInches / Double(team.count))
+}
+
+// check to make sure heights for each team within 1.5
+averageHeight(forTeam: teams["sharks"]!)
+averageHeight(forTeam: teams["dragons"]!)
+averageHeight(forTeam: teams["raptors"]!)
+averageHeight(forTeam: allPlayers)
+for (name, team) in teams {
+  printLettersFor(team: team, teamName: name)
+}
+teams
