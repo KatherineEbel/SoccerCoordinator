@@ -39,6 +39,11 @@ let lesClay: [String : Any] = ["name": "Les Clay", "height": 42, "isExperienced"
 
 let herschelKrustofski: [String : Any] = ["name": "Herschel Krustofski", "height": 45, "isExperienced": true, "guardians": "Hyman and Rachel Krustofski"]
 
+// string constants for each team's practice date/time
+let dragonPracticeDate = "March 17th at 1pm"
+let sharkPracticeDate = "March 17th at 3pm"
+let raptorPracticeDate = "March 18th at 1pm"
+
 // Array for all available players
 let allPlayers = [
   joeSmith, jillTanner, billBon, evaGordon, mattGill, kimmyStein,
@@ -46,17 +51,15 @@ let allPlayers = [
   diegoSoto, chloeAlaska, arnoldWillis, phillipHelm, lesClay, herschelKrustofski
 ]
 
-// string constants for each team's practice date/time
-let dragonPracticeDate = "March 17th at 1pm"
-let sharkPracticeDate = "March 17th at 3pm"
-let raptorPracticeDate = "March 18th at 1pm"
-
 // collections for players/teams
 var experiencedPlayers: [[String: Any]] = []
 var inexperiencedPlayers: [[String: Any]] = []
 var dragons: [[String: Any]] = []
 var sharks: [[String: Any]] = []
 var raptors: [[String: Any]] = []
+// each of the above team dictionaries when populated goes to the value for the appropriate name key in the below teams dictionary,
+// I did this way because I used the key (name of the team) when creating the letters for the players. Each team still has it's own dictionary in the
+// teams variable
 var teams = ["dragons": dragons, "sharks": sharks, "raptors": raptors]
 
 
@@ -65,6 +68,7 @@ func isExperienced(player: [String: Any]) -> Bool {
   return player["isExperienced"] as! Bool
 }
 
+// returns shortest out of two players (used to sort players by height when assigning to teams
 func isShortest(player1: [String:Any], player2: [String:Any]) -> Bool {
   return (player1["height"] as! Int) < (player2["height"] as! Int)
 }
@@ -99,12 +103,12 @@ func printLettersFor(team: [[String:Any]], teamName name: String) {
 
 sortPlayersByExperience()
 
-// calculate number of experienced players based on number of teams
+// calculate number of experienced players/team based on number of teams
 let experiencedPlayersPerTeam = experiencedPlayers.count / teams.count
 
-// put experienced shorter players first
-experiencedPlayers.sort(by: isShortest)
 func assignExperiencedPlayers() {
+  // assign experienced shorter players first
+  experiencedPlayers.sort(by: isShortest)
   while experiencedPlayers.count > 0 {
     for (key, _) in teams {
       if (teams[key]?.count)! < experiencedPlayersPerTeam {
@@ -123,16 +127,17 @@ func assignInExperiencedPlayers() {
       teams[key]?.append(inexperiencedPlayers.removeFirst())
     }
   }
-  
 }
 
+// assign both experienced and inexperienced players to teams
 func assignTeams() {
   assignExperiencedPlayers()
   assignInExperiencedPlayers()
 }
+
 assignTeams()
 
-// calculates average height for each team
+// calculates average height for a team
 func averageHeight(forTeam team: [[String:Any]]) -> Double {
   var totalHeightInInches:Double = 0
   for player in team {
@@ -141,12 +146,13 @@ func averageHeight(forTeam team: [[String:Any]]) -> Double {
   return Double(totalHeightInInches / Double(team.count))
 }
 
-// check to make sure heights for each team within 1.5
-averageHeight(forTeam: teams["sharks"]!)
-averageHeight(forTeam: teams["dragons"]!)
-averageHeight(forTeam: teams["raptors"]!)
-averageHeight(forTeam: allPlayers)
+// check to make sure heights for each team within 1.5 inches
+print("Average Height for Sharks: \(averageHeight(forTeam: teams["sharks"]!)) inches")
+print("Average Height for Dragons: \(averageHeight(forTeam: teams["dragons"]!)) inches")
+print("Average Height for Raptors: \(averageHeight(forTeam: teams["raptors"]!)) inches")
+print("Average Height for allPlayers: \(averageHeight(forTeam: allPlayers)) inches\n")
+
+// print letters for all players in each team
 for (name, team) in teams {
   printLettersFor(team: team, teamName: name)
 }
-teams
