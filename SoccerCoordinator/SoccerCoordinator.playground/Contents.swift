@@ -136,7 +136,6 @@ func assignTeams() {
 }
 
 assignTeams()
-
 // calculates average height for a team
 func averageHeight(forTeam team: [[String:Any]]) -> Double {
   var totalHeightInInches:Double = 0
@@ -152,7 +151,20 @@ print("Average Height for Dragons: \(averageHeight(forTeam: teams["dragons"]!)) 
 print("Average Height for Raptors: \(averageHeight(forTeam: teams["raptors"]!)) inches")
 print("Average Height for allPlayers: \(averageHeight(forTeam: allPlayers)) inches\n")
 
-// print letters for all players in each team
+// print letters for all players in each team and fill individual team dictionaries
 for (name, team) in teams {
   printLettersFor(team: team, teamName: name)
+  switch name {
+  case "sharks":
+    sharks.append(contentsOf: team)
+  case "dragons":
+    dragons.append(contentsOf: team)
+  case "raptors":
+    raptors.append(contentsOf: team)
+  default:
+    break
+  }
 }
+
+sharks
+dragons
