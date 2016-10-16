@@ -57,11 +57,8 @@ var inexperiencedPlayers: [[String: Any]] = []
 var dragons: [[String: Any]] = []
 var sharks: [[String: Any]] = []
 var raptors: [[String: Any]] = []
-// each of the above team dictionaries when populated goes to the value for the appropriate name key in the below teams dictionary,
-// I did this way because I used the key (name of the team) when creating the letters for the players. Each team still has it's own dictionary in the
-// teams variable
 var teams = ["dragons": dragons, "sharks": sharks, "raptors": raptors]
-
+var experiencedPlayersPerTeam = 0
 
 // return true if player is experienced
 func isExperienced(player: [String: Any]) -> Bool {
@@ -74,14 +71,60 @@ func isShortest(player1: [String:Any], player2: [String:Any]) -> Bool {
 }
 
 // Sorts players into experienced and inexperienced players
-func sortPlayersByExperience() {
-  for player in allPlayers {
+func sortByExperience(players: [[String: Any]]) {
+  for player in players {
     isExperienced(player: player) ? experiencedPlayers.append(player) : inexperiencedPlayers.append(player)
   }
 }
 
+// add exp player if not over max per team
+func addExperiencedPlayer(player: [String : Any], toTeam team : inout [[String: Any]]) {
+  if !exPeriencedPlayersIsMax(forTeam: team) {
+    team.append(player)
+  }
+}
+
+func assignExperiencedPlayers() {
+  // assign experienced shorter players first
+  experiencedPlayers.sort(by: isShortest)
+  while experiencedPlayers.count > 0 {
+    for (key, _) in teams {
+        switch key {
+          case "sharks":
+            addExperiencedPlayer(player: experiencedPlayers.removeFirst(), toTeam: &sharks)
+          case "dragons":
+            addExperiencedPlayer(player: experiencedPlayers.removeFirst(), toTeam: &dragons)
+          case "raptors":
+            addExperiencedPlayer(player: experiencedPlayers.removeFirst(), toTeam: &raptors)
+          default: break
+        }
+    }
+  }
+}
+
+// put inexperienced taller players first
+func assignInExperiencedPlayers() {
+  inexperiencedPlayers.sort(by: isShortest)
+  inexperiencedPlayers.reverse()
+  while inexperiencedPlayers.count > 0 {
+    for (key, _) in teams {
+        switch key {
+          case "sharks": sharks.append(inexperiencedPlayers.removeFirst())
+          case "dragons": dragons.append(inexperiencedPlayers.removeFirst())
+          case "raptors": raptors.append(inexperiencedPlayers.removeFirst())
+          default: break
+        }
+    }
+  }
+}
+
+// assign both experienced and inexperienced players to teams
+func assignTeams() {
+  assignExperiencedPlayers()
+  assignInExperiencedPlayers()
+}
 // Build letter for an individual player
-func letterFor(player: [String: Any], on team: String) -> String {
+func letterFor(player: [String: Any], onTeam team: String) -> String {
   var practiceDate = ""
   let playerName = player["name"] as! String
   let guardians = player["guardians"] as! String
@@ -97,47 +140,24 @@ func letterFor(player: [String: Any], on team: String) -> String {
 // print letters for a given team
 func printLettersFor(team: [[String:Any]], teamName name: String) {
   for player in team {
-    print(letterFor(player: player, on: name))
+    print(letterFor(player: player, onTeam: name))
   }
 }
 
-sortPlayersByExperience()
-
-// calculate number of experienced players/team based on number of teams
-let experiencedPlayersPerTeam = experiencedPlayers.count / teams.count
-
-func assignExperiencedPlayers() {
-  // assign experienced shorter players first
-  experiencedPlayers.sort(by: isShortest)
-  while experiencedPlayers.count > 0 {
-    for (key, _) in teams {
-      if (teams[key]?.count)! < experiencedPlayersPerTeam {
-        teams[key]?.append(experiencedPlayers.removeFirst())
-      }
+func printLettersForAllTeams() {
+  // print letters for all players in each team and fill individual team dictionaries
+  for (name, _) in teams {
+    switch name {
+    case "sharks": printLettersFor(team: sharks, teamName: name)
+    case "dragons": printLettersFor(team: dragons, teamName: name)
+    case "raptors": printLettersFor(team: raptors, teamName: name)
+    default: break
     }
   }
 }
 
-// put inexperienced taller players first
-func assignInExperiencedPlayers() {
-  inexperiencedPlayers.sort(by: isShortest)
-  inexperiencedPlayers.reverse()
-  while inexperiencedPlayers.count > 0 {
-    for (key, _) in teams {
-      teams[key]?.append(inexperiencedPlayers.removeFirst())
-    }
-  }
-}
-
-// assign both experienced and inexperienced players to teams
-func assignTeams() {
-  assignExperiencedPlayers()
-  assignInExperiencedPlayers()
-}
-
-assignTeams()
 // calculates average height for a team
-func averageHeight(forTeam team: [[String:Any]]) -> Double {
+func averageHeight(forTeam team: [[String : Any]]) -> Double {
   var totalHeightInInches:Double = 0
   for player in team {
     totalHeightInInches += Double(player["height"] as! Int)
@@ -145,26 +165,20 @@ func averageHeight(forTeam team: [[String:Any]]) -> Double {
   return Double(totalHeightInInches / Double(team.count))
 }
 
-// check to make sure heights for each team within 1.5 inches
-print("Average Height for Sharks: \(averageHeight(forTeam: teams["sharks"]!)) inches")
-print("Average Height for Dragons: \(averageHeight(forTeam: teams["dragons"]!)) inches")
-print("Average Height for Raptors: \(averageHeight(forTeam: teams["raptors"]!)) inches")
-print("Average Height for allPlayers: \(averageHeight(forTeam: allPlayers)) inches\n")
-
-// print letters for all players in each team and fill individual team dictionaries
-for (name, team) in teams {
-  printLettersFor(team: team, teamName: name)
-  switch name {
-  case "sharks":
-    sharks.append(contentsOf: team)
-  case "dragons":
-    dragons.append(contentsOf: team)
-  case "raptors":
-    raptors.append(contentsOf: team)
-  default:
-    break
-  }
+// does team have max amount of experienced players?
+func exPeriencedPlayersIsMax(forTeam team: [[String : Any]]) -> Bool {
+  return team.count == experiencedPlayersPerTeam
 }
 
-sharks
-dragons
+
+// sort players into inexperienced and experienced lists
+sortByExperience(players: allPlayers)
+// calculate number of experienced players/team based on number of teams
+experiencedPlayersPerTeam = experiencedPlayers.count / teams.count
+assignTeams()
+printLettersForAllTeams()
+// check to make sure heights for each team within 1.5 inches
+print("Average Height for Sharks: \(averageHeight(forTeam: sharks)) inches for team of \(sharks.count)")
+print("Average Height for Dragons: \(averageHeight(forTeam: dragons)) inches for team of \(dragons.count)")
+print("Average Height for Raptors: \(averageHeight(forTeam: raptors)) inches for team of \(raptors.count)")
+print("Average Height for allPlayers: \(averageHeight(forTeam: allPlayers)) inches for \(allPlayers.count) players\n")
