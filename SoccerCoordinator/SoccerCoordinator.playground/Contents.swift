@@ -1,5 +1,3 @@
-// Soccer Coordinator
-
 import Foundation
 
 // Dictionary for each individual player
@@ -90,12 +88,9 @@ func assignExperiencedPlayers() {
   while experiencedPlayers.count > 0 {
     for (key, _) in teams {
         switch key {
-          case "sharks":
-            addExperiencedPlayer(player: experiencedPlayers.removeFirst(), toTeam: &sharks)
-          case "dragons":
-            addExperiencedPlayer(player: experiencedPlayers.removeFirst(), toTeam: &dragons)
-          case "raptors":
-            addExperiencedPlayer(player: experiencedPlayers.removeFirst(), toTeam: &raptors)
+          case "sharks": addExperiencedPlayer(player: experiencedPlayers.removeFirst(), toTeam: &sharks)
+          case "dragons": addExperiencedPlayer(player: experiencedPlayers.removeFirst(), toTeam: &dragons)
+          case "raptors": addExperiencedPlayer(player: experiencedPlayers.removeFirst(), toTeam: &raptors)
           default: break
         }
     }
@@ -169,7 +164,6 @@ func averageHeight(forTeam team: [[String : Any]]) -> Double {
 func exPeriencedPlayersIsMax(forTeam team: [[String : Any]]) -> Bool {
   return team.count == experiencedPlayersPerTeam
 }
-
 
 // sort players into inexperienced and experienced lists
 sortByExperience(players: allPlayers)
